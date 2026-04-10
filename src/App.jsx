@@ -4,10 +4,10 @@ import menuVideo from './assets/Mainn.mp4'
 import main1 from './assets/main1.mp4'
 import main2 from './assets/main2.mp4'
 import main3 from './assets/main3.mp4'
-import P3Menu from './P3Menu'
+import { P3Menu } from './persona-ui'
 import VideoPage from './VideoPage'
 import ResumePage from './ResumePage'
-import PageTransition from './PageTransition'
+import { PageTransition } from './persona-ui'
 import Socials from './Socials'
 import AboutMe from './AboutMe'
 import './App.css'
@@ -18,6 +18,18 @@ function MenuScreen() {
     <div id="menu-screen">
       <video src={menuVideo} autoPlay loop muted playsInline />
       <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
+    </div>
+  )
+}
+
+function TestIsolated() {
+  const navigate = useNavigate()
+  return (
+    <div style={{ width: '100vw', height: '100vh', background: '#301b3f', position: 'relative' }}>
+      <h1 style={{ color: 'white', position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)', fontFamily: 'Anton', fontSize: '3rem', letterSpacing: '2px' }}>
+        HACKATHON MODE
+      </h1>
+      <P3Menu onNavigate={(page) => navigate(page === 'test' ? '/' : `/${page}`)} />
     </div>
   )
 }
@@ -38,6 +50,9 @@ function AnimatedRoutes() {
         } />
         <Route path="/socials" element={
           <PageTransition variant="socials"><Socials /></PageTransition>
+        } />
+        <Route path="/test" element={
+          <PageTransition variant="default"><TestIsolated /></PageTransition>
         } />
       </Routes>
     </AnimatePresence>
